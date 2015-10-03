@@ -48,7 +48,7 @@ int main(int x, char ** argc, char * argv[]) {
     int v=0;
 
     for ( int c=0;c<=2;c++)
-        argy=argy[c*5]+argv[1];
+        argy[c*5]=argy+argv[1];
 
     tmp=kdeck(argy,argv[0]);
 
