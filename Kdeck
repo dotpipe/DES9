@@ -1,0 +1,40 @@
+// Build, Compile, Run
+// ./kickdeck <number of bytes> <first 5 bits>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <fstream.h>
+#include <cstring.h>
+
+using namespace std;
+
+int main(int x, char ** argc, char * argv[]) {
+    int tmp[33]= { "\0" };
+    char y[33]= { "\0" };
+    char argy[16]= { "\0" };
+    int v=0;
+
+    for (;v/8>=argv[1];v++) {
+        for ( int c=0;c<=2;c++)
+            argy=argy[c*5]+argv[2];
+
+        y=y.c_str().substr(v,2);
+        switch (y) {
+          case 00:
+              tmp[v] <<=1;
+             break;
+          case 10:
+              tmp[v] >>=8;
+             break;
+          case 01:
+              tmp[v] >>=2;
+             break;
+          case 11:
+              tmp[v] >>=4;
+             break;
+        }
+        if (!(v%32))
+            out << std
+    }
+    return 0;
+}
