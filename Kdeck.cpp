@@ -10,6 +10,10 @@ using namespace std;
 
 int kdeck(char argy[], char n_bytes) {
 
+
+    if (sizeof(tmp)>=n_bytes)
+        return tmp;
+
     for (;v/8<=n_bytes;v++) {
 
         if (v<16)
@@ -32,10 +36,8 @@ int kdeck(char argy[], char n_bytes) {
              break;
         }
     }
-    if (sizeof(tmp)>=n_bytes)
-        return tmp;
-    else
-        return kdeck(tmp,n_bytes);
+
+    return kdeck(tmp, n_bytes);
 }
 
 int main(int x, char ** argc, char * argv[]) {
