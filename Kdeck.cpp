@@ -42,8 +42,7 @@ int kdeck(char * argy[], char n_bytes) {
 int main(int x, char ** argc, char * argv[]) {
     std::ofstream out (argv[2], std::ios::out | std::ios::binary);
     std::vector<int> tmp;
-    std::vector::size_type sz;
-    tmp.reserve(argv[0]*8);
+    tmp.reserve(argv[0]*8+10);
     char argy[16]= { "\0" };
     int v=0;
 
