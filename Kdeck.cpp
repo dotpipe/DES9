@@ -1,5 +1,5 @@
 // Build, Compile, Run
-// ./kickdeck <number of bytes> <first >=5 bits> <output file>
+// ./kickdeck <number of bytes> <first 5 bits> <output file>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,7 +43,7 @@ int main(int x, char ** argc, char * argv[]) {
     std::ofstream out (argv[2], std::ios::out | std::ios::binary);
     std::vector<int> tmp;
     std::vector::size_type sz;
-    sz = tmp.reserve(argv[0]*8);
+    tmp.reserve(argv[0]*8);
     char argy[16]= { "\0" };
     int v=0;
 
