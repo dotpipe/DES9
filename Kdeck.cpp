@@ -52,5 +52,6 @@ int main(int x, char ** argc, char * argv[]) {
 
     tmp=kdeck(argy,argv[0]);
 
+    out << tmp;
     return 0;
 }
