@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int kdeck(char * argy[], char n_bytes) {
+int kdeck(char * argy[], long int n_bytes) {
 
     int * tmp[] = &argy; char[3] y = { "\0" };
 
@@ -42,13 +42,16 @@ int kdeck(char * argy[], char n_bytes) {
 int main(int x, char ** argc, char * argv[]) {
     std::ofstream out (argv[2], std::ios::out | std::ios::binary);
     std::vector<int> tmp;
-    if (tmp.max_size() > argv[0]*8+10)
+    if (tmp.max_size() > argv[0]*8+10) {
         tmp.reserve(argv[0]*8+10);
-    else
+    }
+    else {
         printf("Too many bits in %d, Upgrade, today!",argv[0]);
+        return 0;
+    }
 
-    char argy[16]= { "\0" };
-    int v=0;
+    std::vector<int> argy;
+    argy.reserve(argv[0]*8+10);
 
     for (int c=0;c<=2;c++)
         argy[c*5]=argy+argv[1];
