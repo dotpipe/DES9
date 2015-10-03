@@ -41,14 +41,14 @@ int kdeck(char * argy[], char n_bytes) {
 }
 
 int main(int x, char ** argc, char * argv[]) {
-    std::ofstream out (argv[3], std::ios::out | std::ios::binary);
+    std::ofstream out (argv[2], std::ios::out | std::ios::binary);
     int tmp[33]= { "\0" };
     char y[33]= { "\0" };
     char argy[16]= { "\0" };
     int v=0;
 
     for ( int c=0;c<=2;c++)
-        argy=argy[c*5]+argv[2];
+        argy=argy[c*5]+argv[1];
 
     tmp=kdeck(argy,argv[0]);
 
