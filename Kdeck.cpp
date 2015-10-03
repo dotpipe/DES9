@@ -10,6 +10,7 @@ using namespace std;
 
 int kdeck(char * argy[], char n_bytes) {
 
+    int tmp;
 
     if (sizeof(tmp)>=n_bytes)
         return tmp;
