@@ -1,5 +1,5 @@
 // Build, Compile, Run
-// ./kickdeck <number of bytes> <first 5 bits> <output file>
+// ./kickdeck <number of bytes> <first >=5 bits> <output file>
 
 #include <stdio.h>
 #include <stdlib.h>
