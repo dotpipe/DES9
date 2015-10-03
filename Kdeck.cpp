@@ -10,7 +10,7 @@ using namespace std;
 
 int kdeck(char * argy[], char n_bytes) {
 
-    int tmp;
+    int tmp[] = argy; int y;
 
     if (sizeof(tmp)>=n_bytes)
         return tmp;
@@ -38,7 +38,7 @@ int kdeck(char * argy[], char n_bytes) {
         }
     }
 
-    return kdeck(tmp, n_bytes-3);
+    return kdeck(tmp, n_bytes-2);
 }
 
 int main(int x, char ** argc, char * argv[]) {
