@@ -14,12 +14,12 @@ int kdeck(char * argy[], char n_bytes) {
     if (sizeof(tmp)>=n_bytes)
         return tmp;
 
-    for (;v/8<=n_bytes;v++) {
+    for (int v=0;v/8<=n_bytes;v++) {
 
         if (v<16)
             y=argy.c_str().substr(v,2);
         else
-            y=tmp;
+            y=tmp.c_str().substr(v,2);
 
         switch (y) {
           case 00:
