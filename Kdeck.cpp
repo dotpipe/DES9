@@ -10,7 +10,7 @@ using namespace std;
 
 int kdeck(char * argy[], char n_bytes) {
 
-    int * tmp[] = &argy; int y;
+    int * tmp[] = &argy; char[3] y { "\0" };
 
     if (sizeof(tmp)>=n_bytes)
         return tmp;
@@ -21,16 +21,16 @@ int kdeck(char * argy[], char n_bytes) {
        y=tmp.c_str().substr(v,2);
 
        switch (y) {
-          case 00:
+          case "00":
               tmp[v] <<=1;
              break;
-          case 10:
+          case "10":
               tmp[v] >>=8;
              break;
-          case 01:
+          case "01":
               tmp[v] >>=2;
              break;
-          case 11:
+          case "11":
               tmp[v] >>=4;
              break;
        }
@@ -42,7 +42,11 @@ int kdeck(char * argy[], char n_bytes) {
 int main(int x, char ** argc, char * argv[]) {
     std::ofstream out (argv[2], std::ios::out | std::ios::binary);
     std::vector<int> tmp;
-    tmp.reserve(argv[0]*8+10);
+    if (tmp.max_size() > argv[0]*8+10)
+        tmp.reserve(argv[0]*8+10);
+    else
+        printf("Too many bits in %d, Upgrade, today!",argv[0]);
+
     char argy[16]= { "\0" };
     int v=0;
 
