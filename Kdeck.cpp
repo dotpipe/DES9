@@ -36,21 +36,21 @@ int kdeck(char * argy[], char n_bytes) {
        }
     }
 
-    return kdeck(tmp, n_bytes-3);
+    return kdeck(tmp, n_bytes-1);
 }
 
 int main(int x, char ** argc, char * argv[]) {
     std::ofstream out (argv[2], std::ios::out | std::ios::binary);
-    int tmp[33]= { "\0" };
-    char y[33]= { "\0" };
+    std::vector<int> tmp;
+    std::vector::size_type sz;
+    sz = tmp.reserve(argv[0]*8);
     char argy[16]= { "\0" };
     int v=0;
 
-    for ( int c=0;c<=2;c++)
+    for (int c=0;c<=2;c++)
         argy[c*5]=argy+argv[1];
 
     tmp=kdeck(argy,argv[0]);
 
-    out << tmp;
     return 0;
 }
