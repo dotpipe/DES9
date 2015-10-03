@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int kdeck(char argy[], char n_bytes) {
+int kdeck(char * argy[], char n_bytes) {
 
 
     if (sizeof(tmp)>=n_bytes)
