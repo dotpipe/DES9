@@ -1,5 +1,5 @@
 // Build, Compile, Run
-// ./kickdeck <number of bytes> <first 5 bits>
+// ./kickdeck <number of bytes> <first 5 bits> <output file>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +9,7 @@
 using namespace std;
 
 int main(int x, char ** argc, char * argv[]) {
+    std::ofstream out (argv[3], std::ios::out | std::ios::binary);
     int tmp[33]= { "\0" };
     char y[33]= { "\0" };
     char argy[16]= { "\0" };
