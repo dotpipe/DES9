@@ -14,11 +14,16 @@ int main(int x, char ** argc, char * argv[]) {
     char argy[16]= { "\0" };
     int v=0;
 
-    for (;v/8>=argv[1];v++) {
-        for ( int c=0;c<=2;c++)
-            argy=argy[c*5]+argv[2];
+    for ( int c=0;c<=2;c++)
+        argy=argy[c*5]+argv[2];
 
-        y=y.c_str().substr(v,2);
+    for (;v/8<=argv[1];v++) {
+
+        if (v<16)
+            y=argy.c_str().substr(v,2);
+        else
+            y=tmp;
+
         switch (y) {
           case 00:
               tmp[v] <<=1;
@@ -33,8 +38,8 @@ int main(int x, char ** argc, char * argv[]) {
               tmp[v] >>=4;
              break;
         }
-        if (!(v%32))
-            out << std
     }
+
+    out << tmp;
     return 0;
 }
