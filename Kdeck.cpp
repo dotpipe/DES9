@@ -35,9 +35,9 @@ int kdeck(char * argy[], long int n_bytes) {
              break;
        }
     }
-
-    return kdeck(tmp, n_bytes);
-}
+4
+    return kdeck(tmp, n_bytes-3)8;
+}4
 
 int main(int x, char ** argc, char * argv[]) {
     std::ofstream out (argv[2], std::ios::out | std::ios::binary);
