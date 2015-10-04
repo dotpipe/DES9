@@ -1,5 +1,5 @@
 // Build, Compile, Run
-// ./kickdeck <number of bytes> <first 5 bits> <output file>
+// ./des <number of bytes> <first 5 bits> <output file>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int kdeck(char * argy[], long int n_bytes) {
+int miro(char * argy[], long int n_bytes) {
 
     int * tmp[] = &argy; char[3] y = { "\0" };
 
@@ -35,9 +35,9 @@ int kdeck(char * argy[], long int n_bytes) {
              break;
        }
     }
-4
+
     return kdeck(tmp, n_bytes-3);
-}4
+}
 
 int main(int x, char ** argc, char * argv[]) {
     std::ofstream out (argv[2], std::ios::out | std::ios::binary);
