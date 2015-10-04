@@ -36,7 +36,7 @@ int kdeck(char * argy[], long int n_bytes) {
        }
     }
 4
-    return kdeck(tmp, n_bytes-3)8;
+    return kdeck(tmp, n_bytes-3);
 }4
 
 int main(int x, char ** argc, char * argv[]) {
