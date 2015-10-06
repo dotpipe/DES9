@@ -65,17 +65,22 @@ int main(int x, char ** argc, char * argv[]) {
     fstream in;
     in.open (argv[3], ios::in | ios::binary);
     std::vector<char> tmp;
+    in.seekg (0, in.end);
+    unsigned long int length = in.tellg();
+    in.seekg (0, in.beg);
     if (strcmp("-c",argv[0])) {
-        in.seekg (0, in.end);
-        int length = in.tellg();
-        in.seekg (0, in.beg);
-
+        
+        
         if (tmp.max_size() > length && in && out) {
-            tmp.reserve(length+1);
-            in.read(tmp,length);
+            tmp.reserve(&length);
+            char tmpvar[]= new char(char*length);
+            in.read(tmpvar,length);
             tmp=mirror(tmp);
-            out << length*8 << endl;
-            out << tmp << endl;
+            length*=8;
+            out.write(length,32);
+            out << endl;
+            out.write((const char*)&tmp[0],tmp.size());
+            out << endl;
         }
         else {
             printf("Too many bits in %s, Upgrade, today!",argv[1]);
@@ -88,15 +93,15 @@ int main(int x, char ** argc, char * argv[]) {
         std::string argy;
         getline(in,argy);
 
-        tmp.reserve(length+10);
+        tmp.reserve(&length);
 
         for (int c=1;c<=2;c++)
             argy[c*5]+=argy[0];
 
-        tmp=miro((int)length,tmp);
-
+        tmp=miro(tmp.capacity(),tmp);
     }
-
-    out << (const char*)tmp;
+    
+    out.write((const char*)&tmp[0],tmp.size());
+            
     return 0;
 }
