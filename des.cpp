@@ -4,76 +4,67 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <fstream.h>
-#include <cstring.h>
+#include <iostream>
+#include <fstream>
+#include <cstring>
+#include <vector>
 
 using namespace std;
 
-int miro(std::vector<int> tmp, long int n_bytes) {
+std::vector<char> miro(std::vector<char>::size_type n_bytes, std::vector<char> tmp) {
 
-    char[3] y = { "\0" };
+    int y;
 
     if (sizeof(tmp)>=n_bytes)
         return tmp;
 
-    for (int v : tmp) {
+    for (long unsigned int v = tmp.begin(); v != tmp.end(); ++v) {
 
-       y=tmp.c_str().substr(v,2);
+       y=tmp.at(tmp.end()-v-1) + tmp.at(tmp.end()-v);
 
-       switch (y) {
-          case "00":
-              tmp[v] <<=1;
-             break;
-          case "10":
-              tmp[v] >>=8;
-             break;
-          case "01":
-              tmp[v] >>=2;
-             break;
-          case "11":
-              tmp[v] >>=4;
-             break;
-       }
+       if (strcmp((const char*)y,"00"))
+              tmp[v] =(tmp[v]<<1);
+       if (strcmp((const char*)y,"10"))
+              tmp[v] =(tmp[v]>>8);
+       if (strcmp((const char*)y,"01"))
+              tmp[v] =(tmp[v]>>2);
+       if (strcmp((const char*)y,"11"))
+              tmp[v] =(tmp[v]>>4);
     }
 
-    return miro(tmp, n_bytes);
+    return miro( n_bytes, tmp);
 }
 
-int mirror(std::vector<int> tmp) {
+std::vector<char> mirror(std::vector<char> tmp) {
 
-    char[3] y = { "\0" };
+    int y;
 
     if (sizeof(tmp)<=5)
         return tmp;
 
-    for (int v : tmp) {
+    for (long unsigned int v= tmp.end(); v != tmp.begin(); --v) {
+       
+       y=tmp.at(v-1-1) + tmp.at(v-1);
 
-       y=tmp.c_str().substr(tmp.c_str().len()-v-2,2);
-
-       switch (y) {
-          case "00":
-              tmp[v] >>=1;
-             break;
-          case "10":
-              tmp[v] <<=8;
-             break;
-          case "01":
-              tmp[v] <<=2;
-             break;
-          case "11":
-              tmp[v] <<=4;
-             break;
-       }
+       if (strcmp((const char*)y,"00"))
+              tmp[v] =(tmp[v]>>1);
+       if (strcmp((const char*)y,"10"))
+              tmp[v] =(tmp[v]<<8);
+       if (strcmp((const char*)y,"01"))
+              tmp[v] =(tmp[v]<<2);
+       if (strcmp((const char*)y,"11"))
+              tmp[v] =(tmp[v]<<4);
     }
-    tmp.reserve(tmp.capacity()-2);
 
     return mirror(tmp);
 }
 
 int main(int x, char ** argc, char * argv[]) {
-    std::ofstream out (argv[4], std::ios::out | std::ios::binary);
-    std::ofstream in (argv[3], std::ios::in | std::ios::binary);
-    std::vector<int> tmp;
+    fstream out;
+    out.open (argv[4], ios::out | ios::binary);
+    fstream in;
+    in.open (argv[3], ios::in | ios::binary);
+    std::vector<char> tmp;
     if (strcmp("-c",argv[0])) {
         in.seekg (0, in.end);
         int length = in.tellg();
@@ -84,26 +75,28 @@ int main(int x, char ** argc, char * argv[]) {
             in.read(tmp,length);
             tmp=mirror(tmp);
             out << length*8 << endl;
+            out << tmp << endl;
         }
         else {
-            printf("Too many bits in %d, Upgrade, today!",argv[1]);
+            printf("Too many bits in %s, Upgrade, today!",argv[1]);
             return 0;
         }
     }
-    if (strcmp("-d",argv[0]) {
+    if (strcmp("-d",argv[0])) {
+        std::string length;
+        getline(in,length);
+        std::string argy;
+        getline(in,argy);
 
-        int length=in.getline();
-        char * argy[16]=in.getline();
+        tmp.reserve(length+10);
 
-        tmp.reserve(length*8+10);
+        for (int c=1;c<=2;c++)
+            argy[c*5]+=argy[0];
 
-        for (int c=0;c<=2;c++)
-            argy[c*5]=argy;
-
-        tmp=miro(tmp,length);
+        tmp=miro((int)length,tmp);
 
     }
 
-    out << tmp;
+    out << (const char*)tmp;
     return 0;
 }
