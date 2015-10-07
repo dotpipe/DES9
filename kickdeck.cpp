@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cstring>
 #include <vector>
 
@@ -18,23 +19,23 @@ std::vector<bool> dmiro(std::vector<bool>::size_type n_bytes, std::vector<bool> 
     if (sizeof(tmp)>=n_bytes)
         return tmp;
     
-    tmp.reserve(n_bytes);
+    tmp.push_back(0010);
 
     for (auto v : tmp) {
 
-       y=tmp.at(tmp.end()-v-1) + tmp.at(tmp.end()-v);
+       y=tmp.at(v-1-1) + tmp.at(v-1);
 
        if (strcmp((const char*)y,"00"))
-              tmp[v]=(tmp[v]>>4);
+              (v>>4);
        if (strcmp((const char*)y,"10"))
-              tmp[v]=(tmp[v]>>3);
+              (v>>3);
        if (strcmp((const char*)y,"11"))
-              tmp[v]=(tmp[v]<<1);
+              (v<<1);
        if (strcmp((const char*)y,"01"))
-              tmp[v]=(tmp[v]>>2);
+              (v>>2);
     }
 
-    return dmiro( n_bytes-3, tmp);
+    return dmiro( n_bytes, tmp);
 }
 
 std::vector<bool> mirror(std::vector<bool> tmp) {
@@ -44,21 +45,21 @@ std::vector<bool> mirror(std::vector<bool> tmp) {
     if (sizeof(tmp)<=5)
         return tmp;
 
-    for (auto v= tmp.end(); v != tmp.begin(); --v) {
+    for (auto v : tmp) {
        
        y=tmp.at(v-1-1) + tmp.at(v-1);
 
        if (strcmp((const char*)y,"00"))
-              tmp[v]=(tmp[v]<<4);
+              (v<<4);
        if (strcmp((const char*)y,"01"))
-              tmp[v]=(tmp[v]<<2);
+              (v<<2);
        if (strcmp((const char*)y,"10"))
-              tmp[v]=(tmp[v]<<3);
+              (v<<3);
        if (strcmp((const char*)y,"11"))
-              tmp[v]=(tmp[v]>>1);
+              (v>>1);
        tmp.pop_back();
-    return mirror(tmp);
     }
+    return mirror(tmp);
 }
 
 int main(int x, char ** argc, char * argv[]) {
@@ -67,8 +68,9 @@ int main(int x, char ** argc, char * argv[]) {
     fstream in;
     in.open (argv[3], ios::in | ios::binary);
     in.seekg (0, in.end);
-    std::string length = in.tellg();
-    int lenint=in.tellg;
+    std::ostringstream length;
+    length << in.tellg();
+    int lenint=std::stol(length.str());
     in.seekg (0, in.beg);
     if (strcmp("-c",argv[0]) && in.is_open() && out.is_open()) {
         std::vector<bool> tmp;
@@ -78,7 +80,7 @@ int main(int x, char ** argc, char * argv[]) {
         tmp.reserve(sizeof(tmpvar));
         in.read(tmpvar,lenint);
         
-        for (int v : tmpvar)
+        for (int v=0;v<=sizeof(tmpvar);v++)
             tmp.push_back(tmpvar[v]);
         tmp=mirror(tmp);
         lenint=lenint*8;
@@ -89,21 +91,16 @@ int main(int x, char ** argc, char * argv[]) {
     }
     if (strcmp("-d",argv[0])) {
         std::cout << "enter 5 bits";
-        char argy[16]={ };
+        char argy[6]={ };
         std::cin >> argy;
-        for (int c=1;c<=2;c++)
-            argy[c*5-1]+=argy[0];
-        std::vector<bool> tmp;
-        for (int v : argy)
-            tmp.push_back(argy[v]);
         std::cout << "enter byte size";
         std::cin >> lenint;
-        if (lenint>=tmp.max_size())
+        std::vector<bool, lenint*8+1> tmp;
+        if (lenint*8>=tmp.max_size())
             return 0;
         else
            std::cout << "Let's do this!";
 
-        vector<bool>::size_type sz;
         tmp=dmiro(tmp.capacity(),tmp);
     
         out.write((const char*)&tmp,tmp.size());
