@@ -1,6 +1,6 @@
 // Build, Compile, Run
-// ./des -c <input file> <output file>
-// ./des -d <input file> <output file>
+// ./des -c <output file> <input file>
+// ./des -d <output file>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,9 +72,9 @@ std::vector<int> mirror(std::vector<int> tmp) {
 int main(int x, char ** argc, char * argv[]) {
     int *e;
     fstream out;
-    out.open (argv[2], ios::out | ios::binary);
+    out.open (argv[1], ios::out | ios::binary);
     fstream in;
-    in.open (argv[1], ios::in | ios::binary);
+    in.open (argv[2], ios::in | ios::binary);
     in.seekg (0, in.end);
     std::istringstream length;
     length << in.tellg();
