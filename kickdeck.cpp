@@ -25,6 +25,7 @@ std::cout << n_bytes;
     
     for (int v : tmp) {
         try {
+              int *y[3]= { tmp[v-1], tmp[v], '\0' };
             if (strcmp((const int*)y,"00"))
               tmp.push_back(v>>4);
             if (strcmp((const int*)y,"10"))
@@ -33,7 +34,7 @@ std::cout << n_bytes;
               tmp.push_back(v<<1);
             if (strcmp((const int*)y,"01"))
               tmp.push_back(v>>2);
-              int *y[3]= { tmp[v-1], tmp[v], '\0' };
+
         }
         catch (std::exception &e) {
             tmp.reserve(n_bytes*8+1);
@@ -45,12 +46,13 @@ std::cout << n_bytes;
 
 std::vector<int> mirror(std::vector<int> tmp) {
 
+    bool y[3] {};
     if (sizeof(tmp)<=5)
         return tmp;
 
     for (int v=tmp.end();v<=tmp.begin();--v) {
         try {
-
+        y={ tmp[v], tmp[v+1], '\0' };
        if (strcmp((const int*)y,"00"))
               tmp.push_back(v<<4);
        if (strcmp((const int*)y,"01"))
@@ -60,7 +62,7 @@ std::vector<int> mirror(std::vector<int> tmp) {
        if (strcmp((const int*)y,"11"))
               tmp.push_back(v>>1);
        else tmp.pop_back();
-        bool *y[3]={ tmp[v-1], tmp[v], '\0' };
+
         }
         
         //catch
@@ -84,11 +86,11 @@ int main(int x, char ** argc, char * argv[]) {
         std::vector<int> tmp;
         if (tmp.max_size()>=lenint) {}
         else return 0;
-        int * tmpvar= new int[sizeof(int)*lenint*8+1];
-        tmp.reserve(sizeof(tmpvar)+1);
+        char * tmpvar= new int[sizeof(char)*lenint*8+1];
+        tmp.reserve(+1);
         in.read(tmpvar,length);
         
-        for (int v=0;v<=sizeof(tmpvar);v++)
+        for (int v=0;v<=tmpvar.size();v++)
             tmp.push_back(tmpvar[v]);
         tmp=mirror(tmp);
         lenint=lenint*8;
