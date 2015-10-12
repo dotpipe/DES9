@@ -86,7 +86,7 @@ int main(int x, char ** argc, char * argv[]) {
         std::vector<int> tmp;
         if (tmp.max_size()>=lenint) {}
         else return 0;
-        char * tmpvar= new int[sizeof(char)*lenint*8+1];
+        char * tmpvar= new char[sizeof(char)*lenint*8+1];
         tmp.reserve(+1);
         in.read(tmpvar,length);
         
@@ -111,7 +111,7 @@ int main(int x, char ** argc, char * argv[]) {
         tmp.reserve(30000);
         if (lenint*8+1<=tmp.max_size())
             return 0;
-        tmp[0].push_back(argy);
+        tmp.push_back(argy);
         }
         catch (std::exception &e) {
             tmp.reserve(100000);
